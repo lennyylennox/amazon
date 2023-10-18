@@ -1,3 +1,5 @@
+import 'package:amazon/common_widgets/auth_button.dart';
+import 'package:amazon/common_widgets/bottom_authscreen.dart';
 import 'package:amazon/constants/common_functions.dart';
 import 'package:amazon/utils/colors.dart';
 import 'package:country_picker/country_picker.dart';
@@ -25,7 +27,7 @@ class _AuthScreenState extends State<AuthScreen> {
     return Scaffold(
       backgroundColor: white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: white,
         centerTitle: true,
         title: Image(
           image: const AssetImage('assets/images/amazon_logo.png'),
@@ -59,8 +61,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   return createAccount(width, height, textTheme, context);
                 }),
                 CommonFunctions.blankSpace(height * 0.05, 0),
-                BottomAuthScreenWidget(
-                    width: width, height: height, textTheme: textTheme)
+                const BottomAuthScreenWidget()
               ],
             ),
           ),
@@ -82,7 +83,7 @@ class _AuthScreenState extends State<AuthScreen> {
             width: width,
             padding: EdgeInsets.symmetric(
               horizontal: width * 0.03,
-              vertical: height * 0.03,
+              vertical: 10,
             ),
             child: Column(
               children: [
@@ -225,18 +226,9 @@ class _AuthScreenState extends State<AuthScreen> {
                   style: textTheme.bodyMedium,
                 ),
                 CommonFunctions.blankSpace(height * 0.02, 0),
-                ElevatedButton(
+                AuthButton(
+                  title: "Continue",
                   onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(width, height * 0.06),
-                    backgroundColor: Colors.amber,
-                  ),
-                  child: Text(
-                    "Continue",
-                    style: textTheme.displaySmall!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
                 ),
                 CommonFunctions.blankSpace(height * 0.02, 0),
                 RichText(
@@ -544,61 +536,6 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class BottomAuthScreenWidget extends StatelessWidget {
-  const BottomAuthScreenWidget({
-    super.key,
-    required this.width,
-    required this.height,
-    required this.textTheme,
-  });
-
-  final double width;
-  final double height;
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 2,
-          width: width,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [white, greyShade3, white],
-            ),
-          ),
-        ),
-        CommonFunctions.blankSpace(height * 0.02, 0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Conditions of Use",
-              style: textTheme.bodyMedium!.copyWith(color: blue),
-            ),
-            Text(
-              "Privacy Notice",
-              style: textTheme.bodyMedium!.copyWith(color: blue),
-            ),
-            Text(
-              "Help",
-              style: textTheme.bodyMedium!.copyWith(color: blue),
-            ),
-          ],
-        ),
-        CommonFunctions.blankSpace(height * 0.01, 0),
-        Text(
-          "© 1996-2023, Amazon.com, Inc or its affiliates",
-          style: textTheme.labelMedium!.copyWith(
-            color: grey,
-          ),
-        )
-      ],
     );
   }
 }
