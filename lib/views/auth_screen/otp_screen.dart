@@ -1,6 +1,7 @@
 import 'package:amazon/common_widgets/auth_button.dart';
 import 'package:amazon/common_widgets/bottom_authscreen.dart';
 import 'package:amazon/constants/common_functions.dart';
+import 'package:amazon/controller/services/auth_services.dart';
 import 'package:amazon/utils/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -85,7 +86,15 @@ class _OTPScreenState extends State<OTPScreen> {
               ),
             ),
             CommonFunctions.blankSpace(height * 0.02, 0),
-            AuthButton(title: "Continue", onPressed: () {}),
+            AuthButton(
+              title: "Continue",
+              onPressed: () {
+                AuthServices.verifyOTP(
+                  context: context,
+                  otp: otpcontroller.text.trim(),
+                );
+              },
+            ),
             CommonFunctions.blankSpace(height * 0.02, 0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -1,6 +1,7 @@
 import 'package:amazon/common_widgets/auth_button.dart';
 import 'package:amazon/common_widgets/bottom_authscreen.dart';
 import 'package:amazon/constants/common_functions.dart';
+import 'package:amazon/controller/services/auth_services.dart';
 import 'package:amazon/utils/colors.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
@@ -228,14 +229,19 @@ class _AuthScreenState extends State<AuthScreen> {
                 CommonFunctions.blankSpace(height * 0.02, 0),
                 AuthButton(
                   title: "Continue",
-                  onPressed: () {},
+                  onPressed: () {
+                    AuthServices.receiveOTP(
+                        context: context,
+                        mobileNo:
+                            "$currentCountryCode${mobileController.text.trim()}");
+                  },
                 ),
                 CommonFunctions.blankSpace(height * 0.02, 0),
                 RichText(
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: "By creating an account ",
+                        text: "By creating an account, you agree to Amazon's ",
                         style: textTheme.labelMedium,
                       ),
                       TextSpan(
@@ -495,18 +501,14 @@ class _AuthScreenState extends State<AuthScreen> {
                   ],
                 ),
                 CommonFunctions.blankSpace(height * 0.02, 0),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(width, height * 0.06),
-                    backgroundColor: Colors.amber,
-                  ),
-                  child: Text(
-                    "Continue",
-                    style: textTheme.displaySmall!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                AuthButton(
+                  title: "Continue",
+                  onPressed: () {
+                    AuthServices.receiveOTP(
+                        context: context,
+                        mobileNo:
+                            "$currentCountryCode${mobileController.text.trim()}");
+                  },
                 ),
                 CommonFunctions.blankSpace(height * 0.02, 0),
                 RichText(
