@@ -1,6 +1,6 @@
 import 'package:amazon/controller/services/auth_services.dart';
 import 'package:amazon/views/auth_screen/auth_screen.dart';
-import 'package:amazon/views/home/home_screen.dart';
+import 'package:amazon/views/user/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
