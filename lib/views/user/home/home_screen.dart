@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 offerFor: "headphones",
               ),
               CommonFunctions.divider(),
-              Container(
+              /*Container(
                 height: height * 0.35,
                 width: width,
                 decoration: const BoxDecoration(
@@ -85,14 +85,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       fit: BoxFit.cover),
                 ),
-              ),
+              ),*/
               CommonFunctions.divider(),
               SizedBox(
                 height: height * 0.35,
                 width: width,
                 child: const Image(
                   image: AssetImage(
-                    'assets/images/offersNsponcered/insurance.png',
+                    'assets/images/offersNsponsored/insurance.png',
                   ),
                   fit: BoxFit.fill,
                 ),
@@ -119,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Container(
-                    height: height * 0.35,
+                    //height: height * 0.35,
                     width: width,
                     padding: EdgeInsets.symmetric(
                       horizontal: width * 0.03,
