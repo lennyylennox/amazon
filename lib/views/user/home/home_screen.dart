@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size(width, height * 0.08),
-          child: HomePageAppBar(width: width, height: height),
+          child: const HomePageAppBar(),
         ),
         body: SingleChildScrollView(
           child: Column(

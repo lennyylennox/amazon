@@ -6,15 +6,12 @@ import 'package:flutter/material.dart';
 class HomePageAppBar extends StatelessWidget {
   const HomePageAppBar({
     super.key,
-    required this.width,
-    required this.height,
   });
-
-  final double width;
-  final double height;
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: width * 0.03,
