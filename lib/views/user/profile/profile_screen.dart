@@ -1,6 +1,4 @@
-// ignore_for_file: unused_local_variable
 import 'package:amazon/constants/common_functions.dart';
-import 'package:amazon/utils/colors.dart';
 import 'package:amazon/views/user/profile/app_bar.dart';
 import 'package:amazon/views/user/profile/buy_again.dart';
 import 'package:amazon/views/user/profile/grid_buttons.dart';
@@ -21,7 +19,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final textTheme = Theme.of(context).textTheme;
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(

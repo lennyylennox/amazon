@@ -12,6 +12,7 @@ Color greyShade3 = Colors.grey.shade300;
 Color orange = Colors.orange;
 Color red = Colors.red;
 Color blue = Colors.blue;
+Color green = Colors.green;
 Color teal = Colors.teal;
 Color transparent = Colors.transparent;
 const secondaryColor = Color.fromRGBO(255, 153, 0, 1);

@@ -47,6 +47,7 @@ class KeepShopping extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Container(
