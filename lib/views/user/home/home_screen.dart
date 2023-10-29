@@ -1,6 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:developer';
+
 import 'package:amazon/constants/common_functions.dart';
 import 'package:amazon/constants/constants.dart';
+import 'package:amazon/controller/provider/address_provider.dart';
+import 'package:amazon/controller/services/user_data_crud_services.dart';
 import 'package:amazon/utils/colors.dart';
+import 'package:amazon/views/user/address/address_screen.dart';
 import 'package:amazon/views/user/home/app_bar.dart';
 import 'package:amazon/views/user/home/banner.dart';
 import 'package:amazon/views/user/home/categories_list.dart';
@@ -8,6 +15,8 @@ import 'package:amazon/views/user/home/address_bar.dart';
 import 'package:amazon/views/user/home/todays_deal.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -44,7 +53,114 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  checkUserAddress() {}
+  checkUserAddress() async {
+    bool userAddressPresent = await UserDataCRUD.checkUserAddress();
+    log("User Address Present : ${userAddressPresent.toString()}");
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+
+    if (userAddressPresent == false) {
+      showModalBottomSheet(
+          backgroundColor: white,
+          context: context,
+          builder: (context) {
+            return Container(
+              height: height * 0.3,
+              width: width,
+              padding: EdgeInsets.symmetric(
+                vertical: height * 0.02,
+                horizontal: width * 0.03,
+              ),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Add Address",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: height * 0.18,
+                    child: ListView.builder(
+                        itemCount: 1,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              if (index == 0) {
+                                Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      child: const AddressScreen(),
+                                      type: PageTransitionType.rightToLeft),
+                                );
+                              }
+                            },
+                            child: Container(
+                              width: width * 0.4,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: width * 0.03,
+                                  vertical: height * 0.01),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: greyShade3,
+                                ),
+                              ),
+                              alignment: Alignment.center,
+                              child: Builder(builder: (context) {
+                                if (index == 0) {
+                                  return Text(
+                                    "Add Address",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: greyShade3,
+                                        ),
+                                  );
+                                }
+                                return Text(
+                                  "Add Address",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: greyShade3,
+                                      ),
+                                );
+                              }),
+                            ),
+                          );
+                        }),
+                  ),
+                ],
+              ),
+            );
+          });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkUserAddress();
+      context.read<AddressProvider>().getCurrentSelectedAddress();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;

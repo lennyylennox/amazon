@@ -1,6 +1,13 @@
+// ignore_for_file: use_build_context_synchronously, unused_import
+
+import 'dart:developer';
+
 import 'package:amazon/controller/services/auth_services.dart';
+import 'package:amazon/controller/services/user_data_crud_services.dart';
 import 'package:amazon/views/auth_screen/auth_screen.dart';
 import 'package:amazon/views/user/home/home_screen.dart';
+import 'package:amazon/views/user/user_data/user_data_input_screen.dart';
+import 'package:amazon/views/user/user_persistant_nav_bar/user_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -12,15 +19,32 @@ class SignInLogic extends StatefulWidget {
 }
 
 class _SignInLogicState extends State<SignInLogic> {
+  checkUser() async {
+    bool userExists = await UserDataCRUD.checkUser();
+    log(userExists.toString());
+    if (userExists == true) {
+      Navigator.push(
+        context,
+        PageTransition(
+          child: const UserBottomNavBar(),
+          type: PageTransitionType.rightToLeft,
+        ),
+      );
+    } else {
+      Navigator.push(
+        context,
+        PageTransition(
+          child: const UserDataInputScreen(),
+          type: PageTransitionType.rightToLeft,
+        ),
+      );
+    }
+  }
+
   checkAuthentication() {
     bool userIsAuthenticated = AuthServices.checkAuthentication();
     userIsAuthenticated
-        ? Navigator.pushAndRemoveUntil(
-            context,
-            PageTransition(
-                child: const HomeScreen(),
-                type: PageTransitionType.rightToLeft),
-            (route) => false)
+        ? checkUser()
         : Navigator.pushAndRemoveUntil(
             context,
             PageTransition(
