@@ -17,6 +17,10 @@ class HomePageUserAddressBar extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: width * 0.03,
+        vertical: height * 0.012,
+      ),
       height: height * 0.06,
       width: width,
       decoration: BoxDecoration(

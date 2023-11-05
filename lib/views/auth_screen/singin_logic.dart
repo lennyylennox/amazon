@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:amazon/controller/services/auth_services.dart';
 import 'package:amazon/controller/services/user_data_crud_services.dart';
 import 'package:amazon/views/auth_screen/auth_screen.dart';
+import 'package:amazon/views/seller/seller_persistant_nav_bar/seller_persistant_nav_bar.dart';
 import 'package:amazon/views/user/home/home_screen.dart';
 import 'package:amazon/views/user/user_data/user_data_input_screen.dart';
 import 'package:amazon/views/user/user_persistant_nav_bar/user_bottom_nav_bar.dart';
@@ -23,13 +24,26 @@ class _SignInLogicState extends State<SignInLogic> {
     bool userExists = await UserDataCRUD.checkUser();
     log(userExists.toString());
     if (userExists == true) {
-      Navigator.push(
-        context,
-        PageTransition(
-          child: const UserBottomNavBar(),
-          type: PageTransitionType.rightToLeft,
-        ),
-      );
+      bool userIsSeller = await UserDataCRUD.userIsSeller();
+      log('start');
+      log(userIsSeller.toString());
+      if (userIsSeller == true) {
+        Navigator.push(
+          context,
+          PageTransition(
+            child: const SellerBottomNavBar(),
+            type: PageTransitionType.rightToLeft,
+          ),
+        );
+      } else {
+        Navigator.push(
+          context,
+          PageTransition(
+            child: const UserBottomNavBar(),
+            type: PageTransitionType.rightToLeft,
+          ),
+        );
+      }
     } else {
       Navigator.push(
         context,
